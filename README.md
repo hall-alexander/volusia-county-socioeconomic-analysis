@@ -1,8 +1,12 @@
-# Express Postgres Starter
+# Geojson Plotter
 
-> This project was originally cloned from this repository: https://github.com/HugoDF/express-postgres-starter.
+> This project was originally cloned from this repository: https://github.com/HugoDF/express-postgres-starter. The starter template provided by HugoDF was very helpful in starting this project. This project will be used to create a simple plotting application, and will be used as the template for future data analysis projects. 
 
-## Setup
+## Objectives
+
+> Embed a leaflet map into a webpage
+
+### Setup
 
 Pre-requisites:
 
