@@ -9,7 +9,17 @@ const {SESSION_SECRET} = require('./config');
 const app = express();
 const api = require('./src/api');
 
-app.get('/', (request, response) => response.sendStatus(200));
+// routes
+var homeRouter = require('./routes/home');
+var mappingRouter = require('./routes/mapping');
+
+// view engine setup
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'pug');
+
+
+app.use('/', homeRouter);
+app.use('/mapping', mappingRouter);
 app.get('/health', (request, response) => response.sendStatus(200));
 
 app.use(morgan('short'));
