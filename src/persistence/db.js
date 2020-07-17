@@ -1,6 +1,8 @@
-const {Pool} = require('pg');
+const { Sequelize } = require('sequelize');
 
-module.exports = new Pool({
-  max: 10,
-  connectionString: process.env.DATABASE_URL
-});
+const sequelize = new Sequelize('postgres://postgres:postgres@host.docker.internal:5432/spatial');
+
+module.exports = {
+  sequelize
+};
+
