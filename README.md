@@ -3,7 +3,7 @@
 > This project was originally cloned from this repository: https://github.com/HugoDF/express-postgres-starter. The repository provided a starter template for an express web application. 
 
 ## Project description
-This project attempts to solve an optimization problem for small businesses: where to locate a business to maximize revenue. The author assumes a null hypothesis that closer businesses will attract more customers and therefore more profit than businesses farther away. The project will use Volusia County, Florida for the experiment. Data is sourced from the Volusia County Property Appraiser and the US Census Bureau.
+This project attempts to solve an optimization problem for small businesses: where to locate a business to maximize revenue. The author assumes a null hypothesis that businesses closer to their target demographic group will attract more customers and therefore more profit than businesses farther away. The project will use Volusia County, Florida for the experiment. Data is sourced from the Volusia County Property Appraiser and the US Census Bureau.
 
 ## Objectives
 
