@@ -1,31 +1,50 @@
-# Geojson Plotter
+# Traveling-Business-Problem
 
-> This project was originally cloned from this repository: https://github.com/HugoDF/express-postgres-starter. The starter template provided by HugoDF was very helpful in starting this project. This project will be used to create a simple plotting application, and will be used as the template for future data analysis projects. 
+> This project was originally cloned from this repository: https://github.com/HugoDF/express-postgres-starter. The repository provided a starter template for an express web application. 
+
+## Project description
+This project attempts to solve an optimization problem for small businesses: where to locate a business to maximize revenue. The author assumes a null hypothesis that closer businesses will attract more customers and therefore more profit than businesses farther away. The project will use Volusia County, Florida for the experiment. Data is sourced from the Volusia County Property Appraiser and the US Census Bureau.
 
 ## Objectives
 
-> Embed a leaflet map into a webpage
+* Embed a leaflet map into a webpage. ✅ 
+
+* Plot geojson on leaflet map from postgres database. ✅ 
+
+* Gather demographic data for Volusia County, Florida using the US Census Bureau API. ✅ 
+
+* Visualize demographic information on leaflet map using a heatmap. 
+
+* Web scrap list of commercial properties available for leasing in Volusia County, Florida. Find parcel geometry for properties in the Volusia County Property Apprasiers' database, then plot them on the leaflet map.
+
+* Construct weighted nodes for each census tract - nodes will be centered inside the tract geometry. The weight will be proportional to the size of a demographic group.
+
+* Implement shortest path algorithm that calculates great-circle distance and city-block distance from each commercial property to each weighted node.
+
+* Add UI controls to allow users to change algorithm selection, demographic group, and weight. 
+
+* Test null hypothesis by comparing similar businesses with the same target demographic with shortest path approach. 
+
+* Write up results and publish on Medium.
 
 ### Setup
 
 Pre-requisites:
 
-- Docker for Desktop
+- Docker for Desktop 🐳
 
-Run `docker-compose up` in the root of the project.
-
-It will bring up Postgres and the Express application server in development mode.
-
-It binds the application server to `localhost:3000`, this can be re-mapped this by changing the first 3000 in `3000:3000` of [./docker-compose.yaml](./docker-compose.yaml)).
-
-Postgres is exposed on port `35432`. The connection string is `postgres://user:pass@localhost:35432/db` (username, password and database name are defined in [./docker-compose.yaml](./docker-compose.yaml)).
-
-You can connect to Postgres using the psql client:
+First, you will need to build a docker image from the dockerfile in the root project folder.
 
 ```sh
-psql postgres://user:pass@localhost:35432/db
+docker build -t <image-name> .
 ```
 
-The default Docker `CMD` is `npm start`, [./docker-compose.yaml](./docker-compose.yaml) overrides this to `npm run dev` which runs the application using nodemon (auto-restart on file change).
+After the image has been built, use docker run to start a container. Execute the following command to start the Express server in development mode.
+
+```sh
+docker run -it -p 3000:3000 --name <container-name> <image-name> npm run dev
+```
+
+Open up a new tab in your web browser, and go to localhost:3000/mapping.
 
 
