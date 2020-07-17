@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    res.send('This is where the map API will connect to...');
-});
+// Controllers
+var map_controller = require('../controllers/mapController');
+
+// Map routes
+router.get('/', map_controller.map_get);
 
 module.exports = router;
