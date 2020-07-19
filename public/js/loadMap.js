@@ -82,6 +82,81 @@ $('#plotAllParcels').on('click', function(event){
     });
 });
 
+$('#plotBlockGroups').on('click', function(event){
+    event.preventDefault();
+
+    function getGeoJson() {
+        let url = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Tracts_Blocks/MapServer/8/query?where=STATE%3D+%2712%27+AND+COUNTY+%3D+%27127%27&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&queryByDistance=&returnExtentsOnly=false&datumTransformation=&parameterValues=&rangeValues=&f=geojson"
+
+        var response = fetch(url).then(response => {
+            return response.json();
+        });
+
+        response.then(data => {
+            data.features.sort((a, b) => parseInt(a.properties.BLKGRP) - parseInt(b.properties.BLKGRP));
+            console.log("sorted");
+            data.features.forEach(item => {
+                console.log(item.properties.BLKGRP + " " + item.properties.TRACT);
+            });
+        });
+    }
+
+    function getBlockGroupData() {
+        var key = '125d1b7224cadc62c574b7c23b49e700d740bbb4';
+        var getParams='NAME,B19001_001E';
+        let url = `https://api.census.gov/data/2018/acs/acs5?get=${getParams}&for=block%20group:*&in=state:12%20county:127%20tract:*&key=${key}`;
+
+        var response = fetch(url).then(response => {
+                return response.json();
+            });
+        
+        response.then(data => {
+            var dict = {};
+            data[0].forEach((item, index) => {
+                console.log(item);
+                dict[item] = index;
+            });
+
+            data.sort((a, b) => parseInt(a[dict["block group"]]) - parseInt(b[dict["block group"]]));
+            data.forEach(row => {
+                console.log(row[dict["block group"]] + " " + row[dict["tract"]]);
+            }); 
+        });
+    }
+
+    function insertDataInGeoJson() {
+
+        getGeoJson().then(data => {
+            data.features.sort((a, b) => parseInt(a.properties.BLKGRP) - parseInt(b.properties.BLKGRP));
+            getBlockGroupData().then(blockData => {
+                var dict = {};
+                blockData[0].forEach((item, index) => {
+                    dict[item] = index;
+                });
+                blockData.sort((a, b) => parseInt(a[dict["block group"]]) - parseInt(b[dict["block group"]]));
+                data.features.forEach(item => {
+                    item.properties.INCOME = blockData[dict["B19001_001E"]];
+                    console.log(item.properties.INCOME);
+                });
+            }); 
+        });
+    }
+
+    getGeoJson();
+    getBlockGroupData();
+
+    function applyStyle(){
+
+        var incomeStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65
+        };
+
+    }
+
+});
+
 $.getJSON("public/geojson/blockgroups.geojson", function(data) {
     addFeatureToLayer(data);
 }).fail(function(){
