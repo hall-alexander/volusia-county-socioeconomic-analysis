@@ -13,7 +13,7 @@ This project attempts to solve an optimization problem for small businesses: whe
 
 * Gather demographic data for Volusia County, Florida using the US Census Bureau API. ✅ 
 
-* Visualize demographic information on leaflet map using a heatmap. 
+* Visualize demographic information on leaflet map. ✅ 
 
 * Web scrap list of commercial properties available for leasing in Volusia County, Florida. Find parcel geometry for properties in the Volusia County Property Apprasiers' database, then plot them on the leaflet map.
 
