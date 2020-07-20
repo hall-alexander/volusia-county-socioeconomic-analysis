@@ -47,4 +47,10 @@ docker run -it -p 3000:3000 --name <container-name> <image-name> npm run dev
 
 Open up a new tab in your web browser, and go to localhost:3000/mapping.
 
+## Visualizations
 
+This was my first visualization of US Census data! It depicts the average annual household income in 2018 for each Census tract geometry, which is the smallest denomination of reporting groups. Red blocks represent average household income over 50,000 dollars a year. Blue blocks represent average household income under 50,000 dollars a year. 
+
+<img src=images/averageAnnualHouseholdIncome.PNG>
+
+The visualization is currently misleading because it doesn't account for census tracts where the majority of buildings are commercial. Also, it only represents households who have reported income that year. This could be a misrepresentative sample. Neverless, the objective of plotting demographic information has been accomplished.
