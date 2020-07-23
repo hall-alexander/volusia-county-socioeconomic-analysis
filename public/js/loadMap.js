@@ -88,6 +88,26 @@ $('#plotAllParcels').on('click', function(event){
     });
 });
 
+
+
+$('#plotCommercialParcels').on('click', function(event){
+    event.preventDefault();
+    console.log("Plot all available commercial properties");
+    var geometries = makeAjaxGetCall('/parcels/commercial');
+    geometries.then(function (response) {
+        const array = response;
+        array.forEach(function(item) {
+            try {
+                console.log(item);
+                addFeatureToLayer(JSON.parse(item["st_asgeojson"]));
+            }
+            catch {
+                console.log(item);
+            }
+        });
+    });
+});
+
 $('#plotBlockGroups').on('click', function(event){
     event.preventDefault();
 
