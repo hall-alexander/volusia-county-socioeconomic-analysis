@@ -10,7 +10,7 @@ def findSquareFootage(element):
     try:
         result = element.find('strong').text
     except:
-        result = ''
+        result = 'null'
     return result
 
 def determineRentalTerm(element):
@@ -77,35 +77,42 @@ def addProperties(response: 'requests.models.Response') -> List[Dict]:
 # use this when dealing with data quality later
 # abbreviations = {'NORTH': 'N', 'WEST': 'W', 'EAST': 'E', 'SOUTH': 'S', 'HIGHWAY': 'HWY'}
 
-# Set user agent header field to prevent being blocked as bot
-headers = requests.utils.default_headers()
-headers.update({
-    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
-})
+def main():
 
-# url for commercial properties website
-url = 'https://www.point2homes.com/US/Commercial-Properties-For-Lease/FL/Volusia-County.html'
-response = requests.get(url, headers=headers)
+    # container for all scraped properties
+    results = {'properties': []}
 
-# container for all scraped properties
-results = {'properties': []}
+    # Set user agent header field to prevent being blocked as bot
+    headers = requests.utils.default_headers()
+    headers.update({
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+    })
 
-# We don't want to use the append method. That would append a list of dicts to the list value of the properties key
-# Instead, we want to add the dict objects to a single list
-# Possible improvement: use itertools.chain() to add multiple objects from multiple lists to one list.
-# Or maybe use something like np.arr.flatten()
-results['properties'] = results['properties'] + addProperties(response)
-
-#iterate through all pages until list of addresses is empty
-pageNumber = 2
-while (response.status_code == 200):
-    url = f'https://www.point2homes.com/US/Commercial-Properties-For-Lease/FL/Volusia-County.html?page={pageNumber}'
+    # url for commercial properties website
+    url = 'https://www.point2homes.com/US/Commercial-Properties-For-Lease/FL/Volusia-County.html'
     response = requests.get(url, headers=headers)
-    try:
-        results['properties'] = results['properties'] + addProperties(response)
-        print("Page number is: {}".format(pageNumber))
-        pageNumber = pageNumber + 1
-        time.sleep(2)
-    except ValueError as e:
-        print(e)
-        break
+
+    # We don't want to use the append method. That would append a list of dicts to the list value of the properties key
+    # Instead, we want to add the dict objects to a single list
+    # Possible improvement: use itertools.chain() to add multiple objects from multiple lists to one list.
+    # Or maybe use something like np.arr.flatten()
+    results['properties'] = results['properties'] + addProperties(response)
+
+    #iterate through all pages until list of addresses is empty
+    pageNumber = 2
+    while (response.status_code == 200):
+        url = f'https://www.point2homes.com/US/Commercial-Properties-For-Lease/FL/Volusia-County.html?page={pageNumber}'
+        response = requests.get(url, headers=headers)
+        try:
+            results['properties'] = results['properties'] + addProperties(response)
+            print("Page number is: {}".format(pageNumber))
+            pageNumber = pageNumber + 1
+            time.sleep(2)
+        except ValueError as e:
+            print(e)
+            break
+
+    return results
+
+if __name__=='__main__':
+    main()
