@@ -17,7 +17,7 @@ This project attempts to solve an optimization problem for small businesses: whe
 
 * Web scrap list of commercial properties available for leasing in Volusia County, Florida. Find parcel geometry for properties in the Volusia County Property Apprasiers' database, then plot them on the leaflet map. ✅ 
 
-* Construct weighted nodes for each census tract - nodes will be centered inside the tract geometry. The weight will be proportional to the size of a demographic group.
+* Construct weighted nodes for each census tract - nodes will be centered inside the tract geometry. The weight will be proportional to the size of a demographic group. ✅ 
 
 * Implement shortest path algorithm that calculates great-circle distance and city-block distance from each commercial property to each weighted node.
 
