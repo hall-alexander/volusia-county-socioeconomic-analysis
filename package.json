@@ -39,7 +39,7 @@
     "migrate": "^1.6.2",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
-    "pug": "^3.0.0",
+    "pug": "^3.0.1",
     "sequelize": "^6.2.3",
     "sql-template-strings": "^2.2.2",
     "uuid": "^8.1.0"
