@@ -19,7 +19,7 @@ This project analyses the demographics and housing prices of Daytona Beach, New 
 
 * Select data to include in the project directory for others to explore. 
 
-### Setup
+## Setup
 
 Pre-requisites:
 
