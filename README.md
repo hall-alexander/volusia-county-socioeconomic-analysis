@@ -15,6 +15,10 @@ This project analyses the demographics and housing prices of Daytona Beach, New 
 
 * Visualize demographic information on leaflet map. ✅ 
 
+* Switch from pug HTML templates to some frontend framework like React or Vue.
+
+* Select data to include in the project directory for others to explore. 
+
 ### Setup
 
 Pre-requisites:
@@ -41,4 +45,3 @@ This was my first visualization of US Census data! It depicts the average annual
 
 <img src=images/averageAnnualHouseholdIncome.PNG>
 
-The visualization is currently misleading because it doesn't account for census tracts where the majority of buildings are commercial. Also, it only represents households who have reported income that year. This could be a misrepresentative sample. Neverless, the objective of plotting demographic information has been accomplished.
